@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>three</title>
+    <script src="js/three.js" data-ke-src="js/Three.js"></script>
+    <script src="js/Stats.js" data-ke-src="js/Stats.js"></script>
+    <style>
+        div#threeFirst{
+            width: 100%;
+            height: 600px;
+            background-color: #EEEEEE;
+        }
+    </style>
+</head>
+<body>
+    <div id="threeFirst"></div>
+    <script>
+    //渲染器，场景，相机，事物
+     var renderer,camera,scene,light,stats;
+     function initThree(){
+         width = document.getElementById('threeFirst').clientWidth;
+         height = document.getElementById('threeFirst').clientHeight;
+         renderer = new THREE.WebGLRenderer({ //渲染器
+             antialias: true
+         });
+         renderer.setSize(width,height); //设置画布大小
+         document.getElementById('threeFirst').appendChild(renderer.domElement);//渲染器渲染完成
+         renderer.setClearColor(0xFFFFFF, 1.7);
+
+         stats = new Stats();
+         stats.domElement.style.position = 'absolute';
+
+         stats.domElement.style.left = '0px';
+
+         stats.domElement.style.top = '0px';
+         document.getElementById('threeFirst').appendChild(stats.domElement);
+
+     }
+
+     function initCamera(){//相机
+         camera = new THREE.PerspectiveCamera(45,width/height,0.5,1000);//相机
+         camera.position.x = 0;
+         camera.position.y = 1000;
+         camera.position.z = 0;
+         camera.up.x = 0;
+         camera.up.y = 0;
+         camera.up.z = 1;
+         camera.lookAt({
+             x : 0,
+             y : 0,
+             z : 0
+         });
+     }
+
+     function initScene(){ //场景
+         scene = new THREE.Scene();
+     }
+
+     function initLight(){
+         light = new THREE.DirectionalLight(0xFF0000, 1.0, 0);
+         light.position.set(100,100,200);
+         scene.add(light);
+     }
+
+     function initObject(){ //创建事物
+         //创建立方体
+         var geometry = new THREE.Geometry();
+         var material = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors});
+
+         var color1 = new THREE.Color(0x444444), color2 = new THREE.Color(0xFF0000);
+         //线
+         var p1 = new THREE.Vector3(-150,0,100);//表示点
+         var p2 = new THREE.Vector3(-150,0,-100);
+
+         geometry.vertices.push(p1);//geometry.vertices数组，存放点
+         geometry.vertices.push(p2);
+         geometry.colors.push(color1,color2);// geometry.colors数组，存放color
+
+         var line = new THREE.Line(geometry,material,THREE.LinePieces);
+         scene.add(line);
+     }
+
+     function render(){
+         renderer.clear();
+         renderer.render(scene, camera);
+         requestAnimationFrame(render);
+     }
+
+     function animation(){
+        camera.position.x = camera.position.x + 1; //添加动画效果（移动）
+        renderer.render(scene, camera);
+        requestAnimationFrame(animation);
+        stats.update();
+     }
+
+     function threeStart() {
+         initThree();
+         initCamera();
+         initScene();
+         initLight();
+         initObject();
+         render();
+         animation();
+     }
+     window.onload = function(){
+         threeStart()
+     }
+    </script>
+</body>
+</html>

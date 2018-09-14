@@ -1,0 +1,15 @@
+盒子模型BoxGeometry: 这是一个包含立方体所有顶点和填充面的对象;
+ 网孔基础材料（MeshBasicMaterial）;
+网孔(Mesh)。网孔是用来承载几何模型的一个对象，还可以把材料应用到它上面，然后添加到场景中完成旋转动画；
+相机：
+正投影相机OrthographicCamera( left, right, top, bottom, near, far )；
+透视投影相机PerspectiveCamera( fov, aspect, near, far )
+光源基类：
+ THREE.Light：
+ 衍生出来的种类光源；
+ 环境光：THREE.AmbientLight( hex )，//16进制的颜色值
+ 点光源：THREE.PointLight(color, intensity, distance);
+ //intensity:光源的强度，distance： 光线的强度，
+ 聚光灯：THREE.SpotLight(hex, intensity, distance, angle, exponent),
+ 区域光：THREE.AreaLight,
+ 方向光：THREE.DirectionLight,
