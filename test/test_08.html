@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>modal</title>
+    <script src="js/three.js" data-ke-src="js/Three.js"></script>
+    <style>
+        div#modal{
+            width: 100%;
+            height: 600px;
+            background-color: #EEEEEE;
+        }
+    </style>
+</head>
+<body>
+    <div id="modal"></div>
+    <script>
+        var renderer, camera, scene,light,cube;
+        function initThree(){
+            var container = document.getElementById('modal');
+            width = container.clientWidth;
+            heigth = container.clientHeight;
+            renderer = new THREE.WebGLRenderer({
+                antialias: true
+            })
+            renderer.setSize(width,heigth);
+            container.appendChild(renderer.domElement);
+            renderer.setClearColor(0xffffff, 1.0);
+        }
+
+        function initScene(){
+            scene = new THREE.Scene();
+        }
+
+        function initCamare(){
+            camera = new THREE.PerspectiveCamera(45,width/heigth,1,10000);
+            camera.position.x = 0;
+            camera.position.y = 200;
+            camera.position.z = 0;
+
+            camera.up.x=0;
+            camera.up.y=1;
+            camera.up.z=0;
+
+            camera.lookAt({
+                x: 0,
+                y: 1,
+                z: 0
+            })
+        }
+
+        function initLight(){
+            light = new THREE.DirectionalLight(0x8A2BE2,1);
+            light.position.set(0,0,0);
+            scene.add(light);
+        }
+
+        function initObject(){
+            var geometry = new THREE.TorusGeometry( 30, 10, 80, 60 );//几何体
+            var material = new THREE.MeshBasicMaterial({color: 0x00FFFF});//材料
+            cube = new THREE.Mesh(geometry,material)
+            scene.add(cube);
+            // camera.position.z = 5;
+        }
+
+        function animation(){
+            cube.rotation.x += 0.02;
+            renderer.render(scene, camera);
+            requestAnimationFrame(animation);
+        }
+
+        function threeStart(){
+            initThree();
+            initScene();
+            initCamare();
+            initObject();
+            initLight();
+            animation();
+        }
+
+        window.onload = function(){
+            threeStart()
+        }
+    </script>
+</body>
+</html>

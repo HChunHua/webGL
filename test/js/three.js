@@ -14818,6 +14818,8 @@ THREE.ImageLoader.prototype = {
 
 		image.src = url;
 
+		image.crossOrigin = '';
+
 		return image;
 
 	},
@@ -14878,7 +14880,7 @@ THREE.JSONLoader.prototype = {
 		var texturePath = this.texturePath && ( typeof this.texturePath === "string" ) ? this.texturePath : THREE.Loader.prototype.extractUrlBase( url );
 
 		var loader = new THREE.XHRLoader( this.manager );
-		loader.setCrossOrigin( this.crossOrigin );
+		loader.setCrossOrigin( 'Anonymous' );
 		loader.setWithCredentials( this.withCredentials );
 		loader.load( url, function ( text ) {
 
@@ -15473,7 +15475,7 @@ THREE.BufferGeometryLoader.prototype = {
 		var scope = this;
 
 		var loader = new THREE.XHRLoader( scope.manager );
-		loader.setCrossOrigin( this.crossOrigin );
+		loader.setCrossOrigin( 'Anonymous' );
 		loader.load( url, function ( text ) {
 
 			onLoad( scope.parse( JSON.parse( text ) ) );
@@ -15570,7 +15572,7 @@ THREE.MaterialLoader.prototype = {
 		var scope = this;
 
 		var loader = new THREE.XHRLoader( scope.manager );
-		loader.setCrossOrigin( this.crossOrigin );
+		loader.setCrossOrigin( 'Anonymous' );
 		loader.load( url, function ( text ) {
 
 			onLoad( scope.parse( JSON.parse( text ) ) );
@@ -15718,7 +15720,7 @@ THREE.ObjectLoader.prototype = {
 		var scope = this;
 
 		var loader = new THREE.XHRLoader( scope.manager );
-		loader.setCrossOrigin( this.crossOrigin );
+		loader.setCrossOrigin( 'Anonymous' );
 		loader.load( url, function ( text ) {
 
 			scope.parse( JSON.parse( text ), onLoad );
@@ -16046,7 +16048,7 @@ THREE.ObjectLoader.prototype = {
 			var manager = new THREE.LoadingManager( onLoad );
 
 			var loader = new THREE.ImageLoader( manager );
-			loader.setCrossOrigin( this.crossOrigin );
+			loader.setCrossOrigin( 'Anonymous' );
 
 			for ( var i = 0, l = json.length; i < l; i ++ ) {
 
@@ -16331,7 +16333,7 @@ THREE.TextureLoader.prototype = {
 		var texture = new THREE.Texture();
 
 		var loader = new THREE.ImageLoader( this.manager );
-		loader.setCrossOrigin( this.crossOrigin );
+		loader.setCrossOrigin( 'Anonymous' );
 		loader.load( url, function ( image ) {
 
 			texture.image = image;
@@ -16378,7 +16380,7 @@ THREE.CubeTextureLoader.prototype = {
 		var texture = new THREE.CubeTexture( [] );
 
 		var loader = new THREE.ImageLoader();
-		loader.setCrossOrigin( this.crossOrigin );
+		loader.setCrossOrigin( 'Anonymous' );
 
 		var loaded = 0;
 
@@ -16448,7 +16450,7 @@ THREE.BinaryTextureLoader.prototype = {
 		var texture = new THREE.DataTexture();
 
 		var loader = new THREE.XHRLoader( this.manager );
-		loader.setCrossOrigin( this.crossOrigin );
+		loader.setCrossOrigin( 'Anonymous' );
 		loader.setResponseType( 'arraybuffer' );
 
 		loader.load( url, function ( buffer ) {
@@ -16551,7 +16553,7 @@ THREE.CompressedTextureLoader.prototype = {
 		texture.image = images;
 
 		var loader = new THREE.XHRLoader( this.manager );
-		loader.setCrossOrigin( this.crossOrigin );
+		loader.setCrossOrigin( 'Anonymous' );
 		loader.setResponseType( 'arraybuffer' );
 
 		if ( Array.isArray( url ) ) {
@@ -28446,7 +28448,7 @@ THREE.ImageUtils = {
 		console.warn( 'THREE.ImageUtils.loadTexture is being deprecated. Use THREE.TextureLoader() instead.' );
 
 		var loader = new THREE.TextureLoader();
-		loader.setCrossOrigin( this.crossOrigin );
+		loader.setCrossOrigin( 'Anonymous' );
 
 		var texture = loader.load( url, onLoad, undefined, onError );
 
@@ -28461,7 +28463,7 @@ THREE.ImageUtils = {
 		console.warn( 'THREE.ImageUtils.loadTextureCube is being deprecated. Use THREE.CubeTextureLoader() instead.' );
 
 		var loader = new THREE.CubeTextureLoader();
-		loader.setCrossOrigin( this.crossOrigin );
+		loader.setCrossOrigin( 'Anonymous' );
 
 		var texture = loader.load( urls, onLoad, undefined, onError );
 

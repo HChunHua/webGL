@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>three</title>
+    <script src="js/three.js"></script>
+    <style>
+        div#threeFirst{
+            width: 100%;
+            height: 600px;
+            background-color: #EEEEEE;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div id="threeFirst"></div> -->
+    <script>
+        var camera;
+var scene;
+var renderer;
+var mesh;
+  
+init();
+animate();
+  
+function init() {
+  
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000);
+  
+    var light = new THREE.DirectionalLight( 0xffffff );
+    light.position.set( 0, 1, 1 ).normalize();
+    scene.add(light);
+  
+    var geometry = new THREE.CubeGeometry( 10, 10, 10);
+    var material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('http://wow.techbrood.com/uploads/1702/crate.jpg') } );
+    
+        mesh = new THREE.Mesh(geometry, material );
+        mesh.position.z = -50;
+        scene.add( mesh );
+    
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        document.body.appendChild( renderer.domElement );
+    
+        window.addEventListener('resize', onWindowResize, false);
+    
+        render();
+    }
+    
+    function animate() {
+        mesh.rotation.x += .04;
+        mesh.rotation.y += .02;
+    
+        render();
+        requestAnimationFrame( animate );
+    }
+    
+    function render() {
+        renderer.render( scene, camera );
+    }
+    
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        render();
+    }
+        // var renderer,scene,camera,light,mesh;
+        // function initThree(){
+        //     var container = document.getElementById('threeFirst');
+        //     width = container.clientWidth;
+        //     height = container.clientHeight;
+        //     renderer = new THREE.WebGLRenderer({
+        //         antialias: true
+        //     });
+        // var renderer = new THREE.WebGLRenderer({
+        //     canvas: document.getElementById('mainCanvas')
+        // });
+        //     container.appendChild(renderer.domElement)
+        //     renderer.setSize(width,height);
+        //     renderer.setClearColor(0xffffff, 1.0);
+        // }
+
+        // function initScene(){
+        //     scene = new THREE.Scene();
+        // }
+
+        // function initCamera(){
+        //     camera = new THREE.PerspectiveCamera(45, width/height,1,10000);
+        //     camera.position.x = 0;
+        //     camera.position.y = 100;
+        //     camera.position.z = 0;
+
+        //     camera.up.x = 0;
+        //     camera.up.y = 1;
+        //     camera.up.z = 0;
+
+        //     camera.lookAt({
+        //         x: 0,
+        //         y: 1,
+        //         z: 0
+        //     })
+        // }
+
+        // function initLight(){
+        //     light = new THREE.DirectionalLight(0x8A2BE2,1);
+        //     light.position.set(0,0,0);
+        //     scene.add(light);
+        // }
+
+        // function initObject(){
+        //     //图片存在跨域问题
+        //     // var loader=new THREE.TextureLoader();
+        //     // loader.setCrossOrigin( "Anonymous" );
+        //     // var crateTexture = new THREE.ImageUtils.loadTexture("https://www.baidu.com/img/bd_logo1.png",null,function(t){});
+ 
+        //     var geometry = new THREE.BoxGeometry(15,15,15);
+        //     // var img = THREE.ImageUtils.loadTexture("https://www.baidu.com/img/bd_logo1.png",null, function(t) {});
+        //     var material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('http://wow.techbrood.com/uploads/1702/crate.jpg') } );
+        //     // var meterial = new THREE.MeshBasicMaterial({map: crateTexture, color: 0xffffff, wireframe: false});
+        //     mesh = new THREE.Mesh(geometry,material);
+        //     // camera.position.z = 5;
+        //     scene.add(mesh);
+        // }
+
+        // function render(){
+        //     // mesh.rotation.x += 0.02; 
+        //     // mesh.rotation.y += 0.02; 
+        //     requestAnimationFrame(render);
+        //     renderer.render(scene,camera);
+        // }
+
+        // function threeStart(){
+        //     initThree();
+        //     initCamera();
+        //     initScene();
+        //     initObject();
+        //     initLight();
+        //     render();
+        // }
+
+        // window.onload = function(){
+        //     threeStart()
+        // }
+    </script>
+</body>
+</html>

@@ -91,8 +91,10 @@
                 mesh = new THREE.Mesh( geometry,material);
                 mesh.position = new THREE.Vector3(0,0,0);
                 scene.add(mesh);
-				
-                mesh.translateX(500);
+
+                mesh.rotateX(0.2);//旋转
+                mesh.position.y = 50;//平移
+                mesh.scale.set(0.5, 0.5, 0.38);//缩放
 				
             }
 			

@@ -1,0 +1,2 @@
+UML从考虑系统的不同角度出发，定义了用例图、类图、对象图、包图、状态图、活动图、序列图、协作图、构件图、部署图等10种图。
+常见的UML图有用例图（Use Case Diagram）、类图（Class Diagram）和时序图（Sequence Diagram）。

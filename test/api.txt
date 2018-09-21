@@ -6,10 +6,18 @@
 透视投影相机PerspectiveCamera( fov, aspect, near, far )
 光源基类：
  THREE.Light：
- 衍生出来的种类光源；
- 环境光：THREE.AmbientLight( hex )，//16进制的颜色值
- 点光源：THREE.PointLight(color, intensity, distance);
- //intensity:光源的强度，distance： 光线的强度，
+ 衍生出来的种类光源：
+  //hex：16进制的颜色值，intensity:光源的强度，distance： 光线的强度，
+ 环境光：THREE.AmbientLight( hex )
+ 点光源：THREE.PointLight(hex, intensity, distance);
+ //angle：聚光灯着色的角度，用弧度作为单位，这个角度是和光源的方向形成的角度，exponent：光源模型中，衰减的一个参数，越大衰减约快；
  聚光灯：THREE.SpotLight(hex, intensity, distance, angle, exponent),
  区域光：THREE.AreaLight,
- 方向光：THREE.DirectionLight,
+ 平行光(方向光)：THREE.DirectionalLight
+
+ 在threejs中，纹理类由THREE.Texture表示，其构造函数如下所示：
+THREE.Texture( image, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy )
+
+移动（平移）：translate（translateX（50）,translateY,translateZ）or position.x = 50,position.y,position.z;
+放放：scale.set(0.5, 0.5, 0.38);//三角形的三个坐标
+旋转：rotation（rotateX（0.2）,rotateY,rotateZ or rotation.x += 0.2,rotation.y,rotation.z）

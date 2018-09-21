@@ -30,15 +30,17 @@
             var camera;
             function initCamera() {
                 camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+                //相机x,y,z轴位置
                 camera.position.x = 600;
                 camera.position.y = 0;
                 camera.position.z = 600;
+                //相机以哪个方向为上方（相机正着拍，侧着拍，旋转拍）
                 camera.up.x = 0;
                 camera.up.y = 1;
                 camera.up.z = 0;
-                camera.lookAt({
+                camera.lookAt({ //相机看向的坐标
                     x : 0,
-                    y : 0,
+                    y : 1,
                     z : 0
                 });
             }
@@ -50,17 +52,31 @@
 
             var light;
             function initLight() {
+                //环境光
 //                light = new THREE.AmbientLight(0xFF0000);
 //                light.position.set(100, 100, 200);
 //                scene.add(light);
-                // 聚光灯
+                // 平行灯
                 light = new THREE.DirectionalLight(0xFF0000);
-                light.position.set(0, 0,1);
+                light.position.set(1, 0, 0, 0);
                 scene.add(light);
             }
 
             var cube;
             function initObject() {
+                // var len = 6;
+                // var positinList = ['0,0,0','-300,0,0','0,-150,0','0,150,0','300,0,0','0,0,-100']
+                // for(var i = 0;i < len;i ++){
+                //     var geometry = 'geometry' + i;
+                //     var material = 'material' + i;
+                //     var mesh = 'mesh' + i;
+                //     console.log(positinList[i])
+                //     geometry = new THREE.CubeGeometry( 200, 100, 50,4,4);
+                //     material = new THREE.MeshLambertMaterial( { color:0xFFFFFF} );
+                //     mesh = new THREE.Mesh( geometry,material);
+                //     mesh.position.set(positinList[i]);
+                //     scene.add(mesh);
+                // }
                 var geometry = new THREE.CubeGeometry( 200, 100, 50,4,4);
                 var material = new THREE.MeshLambertMaterial( { color:0xFFFFFF} );
                 var mesh = new THREE.Mesh( geometry,material);

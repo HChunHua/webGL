@@ -36,14 +36,14 @@
 
 
         var geometry = new THREE.PlaneGeometry( 500, 300, 1, 1 );
+        // uv == THREE.Vector2() 二维向量
         geometry.vertices[0].uv = new THREE.Vector2(0,0);
         geometry.vertices[1].uv = new THREE.Vector2(2,0);
         geometry.vertices[2].uv = new THREE.Vector2(2,2);
         geometry.vertices[3].uv = new THREE.Vector2(0,2);
         // 纹理坐标怎么弄
-        var texture = THREE.ImageUtils.loadTexture("textures/a.jpg",null,function(t)
-        {
-        });
+        var texture = THREE.ImageUtils.loadTexture("textures/a.jpg",null,function(t){});
+        
         var material = new THREE.MeshBasicMaterial({map:texture});
         var mesh = new THREE.Mesh( geometry,material );
         scene.add( mesh );

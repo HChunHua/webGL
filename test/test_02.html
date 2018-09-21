@@ -64,10 +64,10 @@
          light.position.set(100,100,200);
          scene.add(light);
      }
-
+     var geometry;
      function initObject(){ //创建事物
          //创建立方体
-         var geometry = new THREE.Geometry();
+         geometry = new THREE.Geometry();
          var material = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors});
 
          var color1 = new THREE.Color(0x444444), color2 = new THREE.Color(0xFF0000);
@@ -78,7 +78,7 @@
          geometry.vertices.push(p1);//geometry.vertices数组，存放点
          geometry.vertices.push(p2);
          geometry.colors.push(color1,color2);// geometry.colors数组，存放color
-
+        
          var line = new THREE.Line(geometry,material,THREE.LinePieces);
          scene.add(line);
      }
@@ -90,6 +90,8 @@
      }
 
      function animation(){
+        // geometry.rotateX( Math.PI / 25 );
+        // geometry.rotateY( Math.PI / 25 );
         camera.position.x = camera.position.x + 1; //添加动画效果（移动）
         renderer.render(scene, camera);
         requestAnimationFrame(animation);

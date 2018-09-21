@@ -64,8 +64,8 @@
        }
 
        function animation(){
-            // cube.position.x-=1; //改变相机的位置，让物体移动
-           // camera.position.x = camera.position.x + 1; //改变物体自身的位置，让物体移动
+            // cube.position.x -= 1;  //改变物体自身的位置，让物体移动
+           // camera.position.x = camera.position.x + 1; //改变相机的位置，让物体移动
            renderer.render(scene,camera);
            requestAnimationFrame(animation);
        }
