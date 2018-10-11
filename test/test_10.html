@@ -20,7 +20,6 @@
 <body>
     <div id="canvas3d"></div>
 <script>
-
     var renderer;
     var scene;
     var camera;
@@ -28,6 +27,8 @@
     var cube;
     var stats;
     var control;
+    //检测当前浏览器是否开启或者是否支持webgl
+    if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
     function init() {
         scene = new THREE.Scene();
