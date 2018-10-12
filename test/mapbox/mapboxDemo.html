@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='./mapbox-gl/mapbox-gl.js'></script>
+    <link href='./mapbox-gl/mapbox-gl.css' rel='stylesheet' />
+    <title>mapbox</title>
+    <style>
+        #map{
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="map" style='width: 50%; height: 500px;'></div>
+    <script>
+        // mapboxgl.accessToken = 'pk.eyJ1IjoiY2h1bmh1YSIsImEiOiJjam41aGdva2c2NzdpM3BueTJiODd0dWttIn0.a1BKew3cZfUIpXYX101-Kw';
+        // var option = {
+        //     container: 'map',
+        //     minZoom: 3,
+        //     maxZoom: 16,
+        //     // style: 'mapbox://styles/mapbox/dark-v9'
+        //     style: {
+        //         "version": 8,
+        //         "name": "Mapbox Streets",
+        //         "sprite": "mapbox://sprites/mapbox/streets-v8",
+        //         "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",
+        //         "sources": {
+        //             "osm-tiles": {
+        //                 "type": "raster",//栅格数据
+        //                 'tiles': [
+        //                     "http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        //                 ],
+        //                 'tileSize': 256
+        //             }
+        //         },
+        //         "layers": []
+        //     }
+        // }
+        // var map = new mapboxgl.Map({
+        //     container: 'map',
+        //     minZoom: 3,
+        //     maxZoom: 16,
+        //     // style: 'mapbox://styles/mapbox/dark-v9' //mapbox样式
+        //     style: { //自定义样式
+        //         "version": 8,//版本
+        //         "name": "Mapbox Streets",//名称
+        //         "sprite": "mapbox://sprites/mapbox/streets-v8",//精灵 
+        //         "glyphs": "mapbox://fonts/mapbox/{fontstack}/{range}.pbf",//元数据
+        //         // 数据源
+        //         "sources": {
+        //             "osm-tiles": {
+        //                 "type": "raster",
+        //                 'tiles': [
+        //                     "http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        //                 ],
+        //                 'tileSize': 256
+        //             }
+        //         },
+        //         //图层
+        //         "layers": []
+        //     }
+        // });
+
+        // map.on('load', function(){
+        //     // 添加数据源
+        //     map.addSource("points", {
+        //         "type": "geojson",
+        //         "data": {
+        //             "type": "FeatureCollection",
+        //             "features": [{
+        //             "type": "Feature",
+        //             "geometry": {
+        //                 "type": "Point",
+        //                 "coordinates": [-77.03238901390978, 38.913188059745586]
+        //             },
+        //             "properties": {
+        //                 "title": "Mapbox DC china",
+        //                 "icon": "monument"
+        //             }
+        //             }, {
+        //             "type": "Feature",
+        //             "geometry": {
+        //                 "type": "Point",
+        //                 "coordinates": [-122.414, 37.776]
+        //             },
+        //             "properties": {
+        //                 "title": "Mapbox SF",
+        //                 "icon": "harbor"
+        //             }
+        //             }]
+        //         }
+        //     });             
+
+        //     // 添加图层，使得上面的数据源里面的数据可视化
+        //     map.addLayer(
+        //         {
+        //             "id": "points",
+        //             "type": "symbol",
+        //             "source": "points",
+        //             "layout": {
+        //                 "icon-image": "{icon}-15",
+        //                 "text-field": "{title}",
+        //                 "text-font": ["Open Sans Regular"],
+        //                 "text-offset": [0, 0.6],
+        //                 "text-anchor": "top"
+        //             }
+        //         },
+        //         {
+        //             "id": "sea",
+        //             "type": "symbol",
+        //             "source": "sea",
+        //             "layout": {
+        //                 "icon-image": "{icon}-18",
+        //                 "text-field": "{title}",
+        //                 "text-font": ["Open Sans Regular"],
+        //                 "text-offset": [0, 0.6],
+        //                 "text-anchor": "top"
+        //             }
+        //         },
+        //     );
+        // })
+
+    var map = new mapboxgl.Map({
+      container: 'map', // container id
+      style: {
+        "version": 8,
+        //      style: 'mapbox://styles/mapbox/basic-v9',
+        //      "sprite": "mapbox://sprites/mapbox/streets-v8",
+        "sprite": "./sprite",
+        "glyphs": "./font/OpenSansRegular/{fontstack}/{range}.pbf",
+        "sources": {
+          "osm-tiles": {
+            "type": "raster",
+            'tiles': [
+                  "http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              ],
+            'tileSize': 256
+          }
+        },
+        "layers": [{
+          "id": "simple-tiles",
+          "type": "raster",
+          "source": "osm-tiles",
+          "minzoom": 0,
+          "maxzoom": 22
+        }]
+      },
+      center: [-96, 37.8],
+      zoom: 3
+    });
+
+
+        
+    </script>
+</body>
+</html>
