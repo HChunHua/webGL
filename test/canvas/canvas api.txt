@@ -1,0 +1,14 @@
+1、strokeRect(x,y,width,height): 绘制无填充矩形；
+2、arc(x, y, r, sAngle, eAngle, conunterclockwise): 绘制圆；
+3、fillStyle = color | gradient | pattern: 填充绘画的颜色、渐变或模式；
+4、moveTo(x, y): 把路径移动到画布中的指定点，不创建线条;
+5、lineTo(x, y): 添加一个新点；
+6、stroke(): 绘制已定义的路径，及线条绘制；
+7、fill(): 填充当前绘图（主要是颜色填充）；
+8、drawImage(img, x, y, width, height): 绘制图像；
+9、scale(scaleWidth, scaleHeight):缩放当前绘图；
+10、save(): 保存当前环境的状态（该方法的使用将之前绘图的属性进行缓存，使之后的绘图能够独立出来）；
+11、restore(): 返回之前保存过的路径状态和属性（即是消除save()的影响，让绘图回到原先的状态）；
+12、beginPath(): 开始一条新的路径，该方法将消除方法调用前的绘图影响（通常我们在一个新的绘图前都会使用该方法，目的是杜绝stroke或fill填充当前图形）。
+13、closePath():创建当前点到开始点的路径，即闭合路径，常用在三角形的第三边绘制。
+14、clearRect(x, y, width, height):清除画布指定区域的绘图，该方法很重要，在canvas中只有此方法可以清除绘图，在重绘时常常用到。

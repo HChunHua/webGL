@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/three.js"></script>
+    <title>earch</title>
+    <style>
+        #earch{
+            width: 50%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div id="earch"></div>
+    <script>
+        var renderer, scene, camera, light, mesh;
+        function initThree(){
+            var container = document.getElementById('earch');
+            width = container.innerWidth;
+            height = container.innerHeight;
+            renderer = new THREE.WebGLRenderer({antialias: true});
+            container.appendChild(renderer.domElement)
+            renderer.setSize(width,height);
+            renderer.clearColor(0x000000,1.0);
+        }
+
+        function initScene(){
+            scene = new THREE.Scene();
+        }
+        function initCamera(){
+        camera = new THREE.PerspectiveCamera(45, width/height, 1, 1000);
+        camera.position = {
+            x: 0,
+            y: 0,
+            z: 0
+        }
+        camera.lookAt({
+            x: 100,
+            y: 160,
+            z: 100
+        })
+        }
+        function initLight(){
+        light = new THREE.DirectionalLight(0xffffff,0.5);
+        ligth.position.set(0, 1, 0);
+        scene.add(light);
+        }
+        function initObject(){
+            //材质
+        var cubeMetry = new THREE.BoxGeometry(25,25,25);
+        var cubeMesh = new THREE.MeshBasicMateral(25,25,25);
+        cube = new THREE.Mesh(cubeMetry,cubeMesh);
+        scene.add(cube)
+        }
+        function render(){
+            renderer.render(scene, camera);
+        }
+        function start(){
+            initThree();
+            initScene();
+            initCamera();
+            initLight();
+        }
+        window.onload = function(){
+            start();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: rgba(0, 0, 0, 0.1)
+        }
+        
+        canvas {
+            display: block;
+            margin: 200px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="clock" width="300" height="300"></canvas>
+<script>
+    init();
+
+    function init(){
+        let canvas = document.querySelector("#clock");
+        let ctx = canvas.getContext("2d");
+        width = ctx.canvas.width;
+        height = ctx.canvas.height;
+        r = width / 2;//定义半径，为后续绘制圆形做准备
+        rem = width / 200;//为了宽度高度放大时，其他边框等比美观，所以设置一个比例
+        draw(ctx,r,rem);
+    }
+
+    function draw(ctx){
+        requestAnimationFrame(function step(){
+            drawDial(ctx,r,rem); //绘制表盘
+            drawAllHands(ctx); //绘制时分秒针
+            requestAnimationFrame(step);
+        });
+    }
+    /*绘制时分秒针*/
+    function drawAllHands(ctx){
+        let time = new Date();
+
+        let s = time.getSeconds();
+        let m = time.getMinutes();
+        let h = time.getHours();
+        
+        let pi = Math.PI;
+        let secondAngle = pi / 180 * 6 * s;  //计算出来s针的弧度
+        let minuteAngle = pi / 180 * 6 * m + secondAngle / 60;  //计算出来分针的弧度
+        let hourAngle = pi / 180 * 30 * h + minuteAngle / 12;  //计算出来时针的弧度
+
+        drawHand(hourAngle, 70, 4, "red", ctx);  //绘制时针
+        drawHand(minuteAngle, 95, 3, "green", ctx);  //绘制分针
+        drawHand(secondAngle, 100, 2, "blue", ctx);  //绘制秒针
+    }
+    /*绘制时针、或分针、或秒针
+     * 参数1：要绘制的针的角度
+     * 参数2：要绘制的针的长度
+     * 参数3：要绘制的针的宽度
+     * 参数4：要绘制的针的颜色
+     * 参数4：ctx
+     * */
+    function drawHand(angle, len, width, color, ctx){
+        ctx.save();
+        ctx.translate(150, 150); //把坐标轴的远点平移到原来的中心
+        ctx.rotate(-Math.PI / 2 + angle);  //旋转坐标轴。 x轴就是针的角度
+        ctx.beginPath();
+        ctx.moveTo(-4, 0);
+        ctx.lineTo(len, 0);  // 沿着x轴绘制针
+        ctx.lineWidth = width;
+        ctx.strokeStyle = color;
+        ctx.lineCap = "round";
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
+    }
+
+        
+    /*绘制表盘*/
+    function drawDial(ctx,r,rem){
+        let pi = Math.PI;
+        ctx.clearRect(0, 0, r * 2, r * 2); //清除所有内容
+        ctx.save();
+
+        ctx.translate(r, r); //将起始点移动到圆心
+        ctx.beginPath();
+        ctx.lineWidth = 10;
+        ctx.arc(0, 0, 150 - ctx.lineWidth / 2, 0, 2 * pi, false); //绘制圆周
+        ctx.stroke();//对圆进行描边
+        ctx.closePath();
+
+        var hoursNumbers = [3,4,5,6,7,8,9,10,11,12,1,2];
+        hoursNumbers.map(function(number, i){
+            var rad = 2 * Math.PI / 12 * i;　　　　　　　　　　　
+        　　 var x = Math.cos(rad) * (r - 30 * rem); 
+            var y = Math.sin(rad) * (r - 30 * rem); 　　　　　　　　//确定各刻度点 X、Y坐标 
+            ctx.textAlign = 'center'; 　　　　　　　　　　　　　　　　//绘制的刻度在整个画布左右居中 
+            ctx.textBaseline = 'middle'; 　　　　　　　　　　　　　　//同理，上下居中 
+            ctx.font = 18 * rem + "px Arial"; 　　　　　　　　　　　//设置显示刻度的数字 1,2,3.. 的字体及字号 
+            ctx.fillText(number, x, y) 　　　　　　　　　　　　　　　//绘制文字
+        })
+
+        //绘制刻度
+        for (let i = 0; i < 60; i++){
+            ctx.save();
+            ctx.rotate(-pi / 2 + i * pi / 30);  //旋转坐标轴。坐标轴x的正方形从 向上开始算起
+            ctx.beginPath();
+            ctx.moveTo(110, 0);
+            ctx.lineTo(140, 0);
+            ctx.lineWidth = i % 5 ? 2 : 4;
+            ctx.strokeStyle = i % 5 ? "blue" : "red";
+            ctx.fill();
+            ctx.closePath();
+            ctx.restore();
+        }
+
+        //绘制小圆点
+        for (let i = 0; i < 60; i++){
+            var rad = 2 * pi / 60 * i;
+            var x = Math.cos(rad) * (r - 18 * rem); 
+            var y = Math.sin(rad) * (r - 18 * rem); 　
+            ctx.beginPath();
+            ctx.fillStyle = i % 5 === 0 ? '#000' : '#ccc';
+            ctx.arc(x, y, 2 * rem, 2 * pi, false);
+            ctx.fill();
+        }
+        ctx.restore();
+    }
+</script>
+</body>
+</html>
