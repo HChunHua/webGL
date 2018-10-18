@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>drawing</title>
+    <style>
+        span,button{
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        #drawing{
+            margin-top: 200px;
+            margin-left: 20px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="drawing" height="500" width="500"></canvas>
+    <div>
+        <button value="清除画布" onclick="clearCanvas()">清除画布</button>
+        <button value="保存" onclick="saveCanvas()">保存</button>
+        <br />
+        <span>画笔</span>
+        <button onclick="changeSize('defult')">默认</button>
+        <button onclick="changeSize('more')">粗</button>
+        <button onclick="changeSize('small')">细</button>
+        <span>更改画笔颜色</span>
+        <button onclick="changeColor('red')">红色</button>
+        <button onclick="changeColor('yellow')">黄色</button>
+        <button onclick="changeColor('black')">黑色</button>
+    </div>
+    <img src="" id="img" alt="">
+
+    <script>
+        let canvas, ctx, isDrawing, width, height, lineColor;
+        window.onload = function(){
+            canvas = document.querySelector('#drawing');
+            if(!canvas.getContext) return;
+            ctx = canvas.getContext('2d');
+            width = ctx.canvas.width;
+            height = ctx.canvas.height;
+            canvas.onmousedown = startDrawing; //开始画
+            canvas.onmouseup = stopDrawing; //停止画
+            canvas.onmousemove = drawing; //画画中
+            isDrawing = false;
+        }
+        //开始画图
+        function startDrawing(e){
+            isDrawing = true;
+            ctx.beginPath();
+            //canvas.offsetLeft: canvas容器距离左边的距离
+            ctx.moveTo(e.pageX - canvas.offsetLeft, e.pageY - canvas.offsetTop);
+        }
+        //画画中
+        function drawing(e){
+            if(isDrawing){
+                x = e.pageX - canvas.offsetLeft;
+                y = e.pageY - canvas.offsetTop;
+                ctx.lineTo(x, y);
+                ctx.strokeStyle = lineColor;
+                ctx.stroke();
+            }
+        }
+        //停止画画
+        function stopDrawing(){
+            isDrawing = false;
+        }
+
+        //保存画布
+        function saveCanvas(){
+            var img = document.getElementById('img');
+            var imgURL = canvas.toDataURL("image/png"); //默认图片格式为png，也可以自定义设置格式。
+            img.src = imgURL;
+        }
+        //清除画布
+        function clearCanvas(){
+            ctx.clearRect(0, 0, width, height);
+        }
+        //更改画笔大小
+        function changeSize(size){
+            size == 'more' ? ctx.lineWidth = 6 :size == 'defult' ? ctx.lineWidth = 1 : ctx.lineWidth = 2;
+        }
+         //更改画笔颜色
+         function changeColor(color){
+            lineColor = color;
+        }
+    </script>
+</body>
+</html>

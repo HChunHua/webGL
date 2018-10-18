@@ -12,3 +12,14 @@
 12、beginPath(): 开始一条新的路径，该方法将消除方法调用前的绘图影响（通常我们在一个新的绘图前都会使用该方法，目的是杜绝stroke或fill填充当前图形）。
 13、closePath():创建当前点到开始点的路径，即闭合路径，常用在三角形的第三边绘制。
 14、clearRect(x, y, width, height):清除画布指定区域的绘图，该方法很重要，在canvas中只有此方法可以清除绘图，在重绘时常常用到。
+
+html页面相关的api：
+e.pageX，e.pageY: 相对于文档的定位，左上角为（0，0），向右为正，向下为正；
+ 
+e.clientX，e.clientY: 相当于屏幕可见区域的坐标，如果页面有滚动条，滚动条隐藏部分不进行计算，也可以说是相对屏幕的坐标，不计算上方的工具栏；
+
+e.screenX:  
+e.screenY:  
+e.offsetX:  
+e.offsetY:  
+$(window).scrollTop:
