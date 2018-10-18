@@ -1,5 +1,12 @@
 1、strokeRect(x,y,width,height): 绘制无填充矩形；
 2、arc(x, y, r, sAngle, eAngle, conunterclockwise): 绘制圆；
+2-1、弧度 = deg * Math.PI / 180；
+2-2、圆点坐标：(x0,y0) 
+    半径：r 
+    角度：a0 
+    则圆上任一点为：（x1,y1） 
+    x1 = x0 + r * cos(ao * Math.PI / 180) 
+    y1 = y0 + r * sin(ao * Math.PI / 180) 
 3、fillStyle = color | gradient | pattern: 填充绘画的颜色、渐变或模式；
 4、moveTo(x, y): 把路径移动到画布中的指定点，不创建线条;
 5、lineTo(x, y): 添加一个新点；

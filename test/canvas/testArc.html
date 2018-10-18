@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>arc</title>
+    <style>
+        #drawArc{
+            margin: 100px 300px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <canvas id="drawArc" width="300" height="300"></canvas>
+    </div>
+    <script>    
+        // window.onload = function(){
+            var canvas = document.querySelector('#drawArc');
+            var ctx = canvas.getContext('2d');
+            var width = canvas.width;
+            var height = canvas.height;
+            // arc(x, y, r, sAngle, eAngle, conunterclockwise): 绘制圆；
+            var pi = Math.PI;//3.14
+            //绘制圆，起始坐标为0，终点坐标为2 * Math.PI；
+
+            var testArc = {
+                x: 100,
+                y: 100,
+                r: 80,
+                startDeg: 0,
+                endDeg: 2*Math.PI
+            }
+            //圆心坐标（x,y）距离左上角位置
+            ctx.arc(testArc.x, testArc.y, testArc.r, testArc.startDeg, testArc.endDeg);
+            ctx.fillStyle = 'red';
+            ctx.fill();
+
+
+        // }
+    </script>
+</body>
+</html>

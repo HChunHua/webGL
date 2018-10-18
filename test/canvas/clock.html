@@ -32,11 +32,11 @@
     }
 
     function draw(ctx){
-        requestAnimationFrame(function step(){
+        // requestAnimationFrame(function step(){
             drawDial(ctx,r,rem); //绘制表盘
             drawAllHands(ctx); //绘制时分秒针
-            requestAnimationFrame(step);
-        });
+            // requestAnimationFrame(step);
+        // });
     }
     /*绘制时分秒针*/
     function drawAllHands(ctx){
@@ -82,7 +82,7 @@
     function drawDial(ctx,r,rem){
         let pi = Math.PI;
         ctx.clearRect(0, 0, r * 2, r * 2); //清除所有内容
-        ctx.save();
+        ctx.save(); //保存
 
         ctx.translate(r, r); //将起始点移动到圆心
         ctx.beginPath();
@@ -91,11 +91,21 @@
         ctx.stroke();//对圆进行描边
         ctx.closePath();
 
+        // var hoursNumbers1 = [3,4,5,6,7,8,9,10,11,12,1,2];
+        // hoursNumbers1.map(function(num,i){
+        //     var testThree = i * 30 * Math.PI / 180;
+        //     console.log(testThree);
+        // })
+
+        //绘制点数
         var hoursNumbers = [3,4,5,6,7,8,9,10,11,12,1,2];
         hoursNumbers.map(function(number, i){
-            var rad = 2 * Math.PI / 12 * i;　　　　　　　　　　　
-        　　 var x = Math.cos(rad) * (r - 30 * rem); 
+
+            var rad = 2 * Math.PI / 12 * i;　//弧度　
+            var x = Math.cos(rad) * (r - 30 * rem); 
             var y = Math.sin(rad) * (r - 30 * rem); 　　　　　　　　//确定各刻度点 X、Y坐标 
+            // console.log(x,'x')
+            // console.log(y,'y')
             ctx.textAlign = 'center'; 　　　　　　　　　　　　　　　　//绘制的刻度在整个画布左右居中 
             ctx.textBaseline = 'middle'; 　　　　　　　　　　　　　　//同理，上下居中 
             ctx.font = 18 * rem + "px Arial"; 　　　　　　　　　　　//设置显示刻度的数字 1,2,3.. 的字体及字号 
@@ -105,7 +115,7 @@
         //绘制刻度
         for (let i = 0; i < 60; i++){
             ctx.save();
-            ctx.rotate(-pi / 2 + i * pi / 30);  //旋转坐标轴。坐标轴x的正方形从 向上开始算起
+            ctx.rotate(-pi / 2 + i * pi / 30);  //旋转坐标轴。坐标轴x的正方形从向上开始算起
             ctx.beginPath();
             ctx.moveTo(110, 0);
             ctx.lineTo(140, 0);
