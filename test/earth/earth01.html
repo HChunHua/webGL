@@ -31,29 +31,29 @@
             scene = new THREE.Scene();
         }
         function initCamera(){
-        camera = new THREE.PerspectiveCamera(45, width/height, 1, 1000);
-        camera.position = {
-            x: 0,
-            y: 0,
-            z: 0
-        }
-        camera.lookAt({
-            x: 100,
-            y: 160,
-            z: 100
-        })
+            camera = new THREE.PerspectiveCamera(45, width/height, 1, 1000);
+            camera.position = {
+                x: 0,
+                y: 0,
+                z: 0
+            }
+            camera.lookAt({
+                x: 100,
+                y: 160,
+                z: 100
+            })
         }
         function initLight(){
-        light = new THREE.DirectionalLight(0xffffff,0.5);
-        ligth.position.set(0, 1, 0);
-        scene.add(light);
+            light = new THREE.DirectionalLight(0xffffff,0.5);
+            ligth.position.set(0, 1, 0);
+            scene.add(light);
         }
         function initObject(){
             //材质
-        var cubeMetry = new THREE.BoxGeometry(25,25,25);
-        var cubeMesh = new THREE.MeshBasicMateral(25,25,25);
-        cube = new THREE.Mesh(cubeMetry,cubeMesh);
-        scene.add(cube)
+            var cubeMetry = new THREE.BoxGeometry(25,25,25);
+            var cubeMesh = new THREE.MeshBasicMateral(25,25,25);
+            cube = new THREE.Mesh(cubeMetry,cubeMesh);
+            scene.add(cube)
         }
         function render(){
             renderer.render(scene, camera);

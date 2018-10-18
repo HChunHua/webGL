@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/three.js"></script>
+    <!-- 性能检测器 -->
+    <script src="js/Stats.js"></script> 
+    <!-- 创建菜单栏，控制场景中的各个参数调试场景 -->
+    <script src="../js/dat.gui.js"></script>
+    <title>Document</title>
+    <style>
+        #container{
+            height: 300px;
+            width: 100%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        var renderer, scene, camera, light, mesh;
+        function initThree(){
+            var container = document.getElementById('container');
+            width = container.clientWidth;
+            height = container.clientHeight;
+            renderer = new THREE.WebGLRenderer({antialias: true});
+            renderer.setSize(width,height,false);
+            container.appendChild(renderer.domElement);
+            renderer.setClearColor(0xffffff,1.0);
+        }
+
+        function initScene(){
+            scene = new THREE.Scene();
+        }
+
+        function initCamera(){
+            camera = new THREE.PerspectiveCamera(45, width/height,1,10000);
+            camera.position = {
+                x: 0,
+                y: 50,
+                z: 0
+            }
+            camera.up = {
+                x: 0,
+                y: 1,
+                z: 1
+            }
+            camera.lookAt({
+                x: 0,
+                y: 0,
+                z: 0
+            })
+        }
+
+        function initLight(){
+            light = new THREE.DirectionalLight(0x404040, 1.0, 0);
+            light.position.set(100,100,50);
+            scene.add(light);
+        }
+
+        function initObject(){
+            var obj = new THREE.SphereGeometry(10,10,10);
+            var objMesh = new THREE.LineBasicMaterial({ color: 0xffff00, opacity: 0.2 });
+            mesh = new THREE.Mesh(obj,objMesh);
+            scene.add(mesh);
+            mesh.position.set(10,10,10);
+        }
+
+        // function render(){
+        //    renderer.render(scene,camera);
+        // }
+
+        function start(){
+            initThree();
+            initCamera();
+            initScene();
+            initLight();
+            initObject();
+            renderer.clear(); 
+            renderer.render(scene, camera);
+        }
+
+        window.onload = function(){
+            start();
+        }
+    </script>
+</body>
+</html>
