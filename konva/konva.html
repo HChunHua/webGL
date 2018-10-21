@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>konva</title>
+    <script src="./js/konva.min.js"></script>
+</head>
+<body>
+    <div id="konva"></div>
+    <script>
+        //初始化
+        var stage = new Konva.Stage({
+            container : 'konva',    //container 用来容纳舞台的容器
+            width : window.innerWidth,
+            height : window.innerHeight     
+        })
+        //创建层
+        var layer = new Konva.Layer();  //创建一个层
+        stage.add(layer);               //把层添加到舞台
+        var layer2 = new Konva.Layer({});  //创建第二个层
+        stage.add(layer2);
+        var layer3 = new Konva.Layer({});  //创建第三个层
+        stage.add(layer3);
+        // create label
+        var titleLabel = new Konva.Layer({});
+        stage.add(titleLabel); 
+        //绘制外部矩形
+        var outRect = new Konva.Rect({
+            x:100,      //矩形相对父容器的坐标
+            y:100,      
+            width: 500,   //矩形的宽高
+            height:50,
+            strokeWidth:10,    //描边的宽度
+            stroke:'#aaa',     //描边的颜色
+            cornerRadius: 25,      //圆角
+            draggable: true
+        });
+        // layer.add(outRect);    //把绘制的图形添加到图层上
+        // layer.draw();       //切记要绘制图层
+
+        //绘制内部矩形
+        var innerRect = new Konva.Rect({
+            x:100,
+            y:100,
+            width: 500*0.5,      //设置外部矩形的宽度为外部矩形的一半
+            height:50,
+            fill:'skyblue',      //填充颜色
+            cornerRadius: 25
+        });
+        // layer2.add(innerRect);
+        // layer2.draw(); 
+
+        //绘制圆形
+        var circle = new Konva.Circle({
+            x: 200,
+            y: 250,
+            radius: 50,
+            fill: 'red',
+            stroke: '#000'
+        })
+
+        var triangle = new Konva.Shape({
+            sceneFunc: function ( ctx ) {
+                // 自定义绘图路径
+                ctx.moveTo( window.innerWidth / 2, window.innerHeight / 4 );
+                ctx.lineTo( window.innerWidth / 2 - window.innerHeight / ( 2 * 1.732 ), window.innerHeight * 3 / 4 );
+                ctx.lineTo( window.innerWidth / 2 + window.innerHeight / ( 2 * 1.732 ), window.innerHeight * 3 / 4 );
+                ctx.closePath();
+                // Konva.js 的独有方法
+                ctx.fillStrokeShape( this );
+            },
+            fill: 'pink',
+            stroke: 'red'
+        });
+        //将图形添加后绘图
+        // layer.add( triangle );
+        // layer.draw();
+        //文字
+       var txt1 = new Konva.Text({
+            x: window.innerWidth / 4 - 50,
+            y: window.innerHeight / 4 - 6,
+            fontSize: 12,
+            text: 'Object 构造函数',
+            align: 'center',
+            width: 100,
+            height: 50
+        });
+        // layer.add( rect1 );
+        //箭头
+        var arrow = new Konva.Arrow({
+            points: [ 
+                window.innerWidth / 4 + 50,
+                window.innerHeight / 4,
+
+                window.innerWidth / 2,
+                window.innerHeight / 4,
+
+                window.innerWidth / 2,
+                window.innerHeight * 3 / 4,
+
+                window.innerWidth * 3 / 4 - 50 - 7,
+                window.innerHeight * 3 / 4
+            ],
+            pointerLength: 15,
+            pointerWidth: 6,
+            fill: '#ccc',
+            stroke: '#ccc',
+            lineWidth: .7       
+        });
+
+        // create label
+        var label = new Konva.Label({
+            x: 100,
+            y: 100,
+            draggable: true
+        });
+        // add a tag to the label
+        label.add(new Konva.Tag({
+            x: window.innerWidth / 4 - 50,
+            y: window.innerHeight / 4 - 6,
+            width: 300,     
+            height: 100,
+            fill: '#bbb',
+            stroke: '#333',
+            shadowColor: 'black',
+            shadowBlur: 10,
+            shadowOffset: [10, 10],
+            shadowOpacity: 0.2,
+            lineJoin: 'round',
+            pointerWidth: 20,
+            pointerHeight: 20,
+            cornerRadius: 5
+        }));
+
+        // add text to the label
+        label.add(new Konva.Text({
+            x: window.innerWidth / 4 - 50,
+            y: window.innerHeight / 4 - 6,
+            width: 100,
+            height: 50,
+            fontSize: 12,
+            text: 'Hello World!',
+            lineHeight: 1.2,
+            padding: 10,
+            fill: 'grey'
+        }));
+        // titleLabel.draw();
+
+        var group = new Konva.Group({
+            x : 0,
+            y : 0
+        });
+
+        group.add(innerRect);     //把两个矩形添加到组中
+        group.add(outRect);
+        group.add(circle); //把圆添加到组中
+        group.add( triangle );
+        group.add( txt1 );
+        group.add( arrow );
+
+        group.add( label );
+
+        layer.add(group);    //把组添加到层中
+        layer.draw();
+
+
+        // var tween = new Konva.Tween({
+        //     node: innerRect,             //要进行动画的Konva对象
+        //     x: 300,                 //要进行动画的属性
+        //     opacity: 0.8,            
+        //     duration: 1,            //持续时间
+        //     easing: Konva.Easings.EaseIn, //动画的动画效果
+        //     yoyo: true,             //是否进行循环播放的设置
+        //     onFinish: function() {
+        //         //动画执行结束后，执行此方法
+        //     }
+        // });
+        // tween.play();   //启动动画
+
+        innerRect.to({
+            x: 400,
+            y: 400,
+            opactity: .1,
+            duration: 2,
+            easing: Konva.Easings.StrongEaseIn, //动画的动画效果
+            yoyo: true, 
+            onFinish: function() {
+                console.log("stop")
+            }
+        }); 
+
+        // innerRect.on( 'mouseover', function () {
+        //     console.log( '1111' );
+        // });
+
+        // triangle.on('mouseover',function(){
+        //     console.log("1111")
+        // });
+        
+    </script>
+</body>
+</html>
