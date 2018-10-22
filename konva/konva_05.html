@@ -29,7 +29,7 @@
       <button id="toTop">
           Move yellow box to top
       </button>
-      <button id="toBottom">
+      <!-- <button id="toBottom">
           Move yellow box to bottom
       </button>
       <button id="up">
@@ -40,7 +40,7 @@
       </button>
       <button id="zIndex">
           Set yellow box zIndex to 3
-      </button>
+      </button> -->
   </div>
   <script>
     var width = window.innerWidth;
@@ -81,30 +81,35 @@
                 yellowBox = box;
             }
             layer.add(box);
+            
         })();
     }
+    
+    yellowBox.moveToTop();
     stage.add(layer);
+
+    
     // add button event bindings
-    document.getElementById('toTop').addEventListener('click', function() {
-        yellowBox.moveToTop();
-        layer.draw();
-    }, false);
-    document.getElementById('toBottom').addEventListener('click', function() {
-        yellowBox.moveToBottom();
-        layer.draw();
-    }, false);
-    document.getElementById('up').addEventListener('click', function() {
-        yellowBox.moveUp();
-        layer.draw();
-    }, false);
-    document.getElementById('down').addEventListener('click', function() {
-        yellowBox.moveDown();
-        layer.draw();
-    }, false);
-    document.getElementById('zIndex').addEventListener('click', function() {
-        yellowBox.setZIndex(3);
-        layer.draw();
-    }, false);
+    // document.getElementById('toTop').addEventListener('click', function() {
+    //     yellowBox.moveToTop();
+    //     layer.draw();
+    // }, false);
+    // document.getElementById('toBottom').addEventListener('click', function() {
+    //     yellowBox.moveToBottom();
+    //     layer.draw();
+    // }, false);
+    // document.getElementById('up').addEventListener('click', function() {
+    //     yellowBox.moveUp();
+    //     layer.draw();
+    // }, false);
+    // document.getElementById('down').addEventListener('click', function() {
+    //     yellowBox.moveDown();
+    //     layer.draw();
+    // }, false);
+    // document.getElementById('zIndex').addEventListener('click', function() {
+    //     yellowBox.setZIndex(3);
+    //     layer.draw();
+    // }, false);
   </script>
 </body>
 </html>

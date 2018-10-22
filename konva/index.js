@@ -115,6 +115,7 @@ export default class Dount extends VisChartBase  {
 
         this.circleLine.rotation( this.circleLineRotation );
         this.stage.add( this.layoutLayer );
+        this.layoutLayer.moveToBottom();
 
         window.requestAnimationFrame( ()=>{ this.animationCircleLine() } );
     }
@@ -156,6 +157,7 @@ export default class Dount extends VisChartBase  {
             item.arc.angle( tmpAngle );
         }
         this.stage.add( this.arcLayer );
+        // this.arcLayer.setZIndex(1);
 
         this.animation();
 
@@ -226,40 +228,18 @@ export default class Dount extends VisChartBase  {
             this.drawCircleLine();
 
             this.stage.add( this.layoutLayer );
-
-            this.tooltipLayer = new Konva.Layer();
-            this.addDestroy( this.tooltipLayer );
+            this.layoutLayer.moveToBottom();
 
             this.arcLayer = new Konva.Layer();
             this.addDestroy( this.arcLayer );
 
+            this.tooltipLayer = new Konva.Layer();
+            this.addDestroy( this.tooltipLayer );
+
+            this.tooltipLayer1 = new Konva.Layer();
+            this.addDestroy( this.tooltipLayer1 );
+
         }
-
-        let tooltip = new Konva.Text({
-            text: "11",
-            fontFamily: "Calibri",
-            fontSize: 12,
-            padding: 5,
-            textFill: "#fff",
-            fill: "#fff",
-            alpha: 0.75,
-            visible: false,
-        });
-    
-        let tooltipBg = new Konva.Tag({
-            width: 100,     
-            height: 30,
-            fill: '#ccc',
-            // alpha: 0.2,
-            // fill: 'red',
-            lineJoin: 'round',
-            cornerRadius: 5,
-            // opacity: 0.2,
-            visible: false,
-        });
-
-        this.tooltipLayer.add(tooltipBg);
-        this.tooltipLayer.add(tooltip);
 
         this.path = [];
         this.line = [];
@@ -291,11 +271,12 @@ export default class Dount extends VisChartBase  {
             };
 
             let arc = new Konva.Arc( params );
-            
+
+            this.clearList.push( arc );
+            let self = this;
             //添加tooltip
-            arc.on('mousemove', ()=> {
-                console.log('mousemove00000')
-                let mousePos = this.stage.getPointerPosition();
+            arc.on('mousemove', function() {
+                let mousePos = self.stage.getPointerPosition();
                 tooltip.position({
                     x : mousePos.x + 5,
                     y : mousePos.y + 5
@@ -304,19 +285,17 @@ export default class Dount extends VisChartBase  {
                     x : mousePos.x,
                     y : mousePos.y
                 });
-                tooltip.text('11');
+                let textLabel = `访问来源 ${val.name}: ${val.value}(${val.percent}%)`
+                tooltip.text(textLabel);
                 tooltip.show();
                 tooltipBg.show();
-                this.tooltipLayer.batchDraw();
+                self.tooltipLayer.batchDraw();
             });
-            arc.on('mouseout', ()=> {
-                console.log(mouseout,'mouseout')
+            arc.on('mouseout', function() {
                 tooltip.hide();
                 tooltipBg.hide();
-                this.tooltipLayer.draw();
+                self.tooltipLayer.draw();
             });
-
-            this.clearList.push( arc );
 
             let line = new Konva.Line({
               x: this.fixCx(),
@@ -343,10 +322,33 @@ export default class Dount extends VisChartBase  {
 
         };
 
-        this.arcLayer.moveToTop();
-        // layer.draw();
         this.stage.add( this.arcLayer );
-        this.stage.add( this.tooltipLayer );
+
+
+        let tooltip = new Konva.Text({
+            fontFamily: "Calibri",
+            fontSize: 12,
+            padding: 5,
+            textFill: "#fff",
+            fill: "#fff",
+            alpha: 0.75,
+            visible: false,
+        });
+        let tooltipBg = new Konva.Tag({
+            width: 200,     
+            height: 30,
+            fill: '#ccc',
+            lineJoin: 'round',
+            cornerRadius: 5,
+            opacity: 0.2,
+            visible: false,
+        });
+
+        this.tooltipLayer.add(tooltipBg);
+        this.tooltipLayer.add(tooltip);
+
+        this.stage.add(this.tooltipLayer);
+        this.tooltipLayer.moveToTop();
 
         return this;
     }

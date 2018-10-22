@@ -26,49 +26,23 @@
       height: height
     });
 
+    
+    
     var shapesLayer = new Konva.Layer();
     var tooltipLayer = new Konva.Layer();
+    var objectLayer = new Konva.Layer();
 
-//  var triangle = new Konva.Shape({
-//         stroke : 'black',
-//         fill : '#00D2FF',
-//         strokeWidth : 1,
-//         sceneFunc: function(context){
-//             context.beginPath();
-//             context.moveTo(100, 50);
-//             context.lineTo(100, 380);
-//             context.lineTo(150, 170);
-//             context.closePath();
-//             context.fillStrokeShape(this);
-//         }
-//     });
-
-
-
-    var tooltip = new Konva.Text({
-        text: "",
-        fontFamily: "Calibri",
-        fontSize: 12,
-        padding: 5,
-        textFill: "#fff",
-        fill: "#fff",
-        alpha: 0.75,
-        visible: false
+    var triangle = new Konva.Rect({
+        x:150,      //矩形相对父容器的坐标
+        y:50,      
+        width: 500,   //矩形的宽高
+        height:350,
+        stroke : 'black',
+        fill : '#00D2FF',
+        strokeWidth : 1
     });
 
-    var tooltipBg = new Konva.Tag({
-        width: 100,     
-        height: 30,
-        fill: 'rgba(0,0,0,0.2)',
-        lineJoin: 'round',
-        cornerRadius: 5,
-        visible: false
-    });
-
-    tooltipLayer.add(tooltipBg);
-    tooltipLayer.add(tooltip);
-    
-    list = [
+     list = [
         {
             x: 550,
             y: 50,
@@ -110,7 +84,7 @@
             angle: list[i].angle,
         };
         let arc = new Konva.Arc(params);
-        top11(arc);
+        // top11(arc);
         // console.log(arc,'arc')
         arc.on("mousemove", function(){
             console.log("00")
@@ -134,110 +108,40 @@
             tooltipBg.hide();
             tooltipLayer.draw();
         });
-
         shapesLayer.add(arc);
-
     }
 
-    var triangle = new Konva.Rect({
-        x:150,      //矩形相对父容器的坐标
-        y:50,      
-        width: 500,   //矩形的宽高
-        height:350,
-        stroke : 'black',
-        fill : '#00D2FF',
-        strokeWidth : 1
+    var tooltip = new Konva.Text({
+        text: "",
+        fontFamily: "Calibri",
+        fontSize: 12,
+        padding: 5,
+        textFill: "#fff",
+        fill: "#fff",
+        alpha: 0.75,
+        visible: false
     });
 
-    shapesLayer.add(triangle);
+    var tooltipBg = new Konva.Tag({
+        width: 100,     
+        height: 30,
+        fill: 'rgba(0,0,0,0.2)',
+        lineJoin: 'round',
+        cornerRadius: 5,
+        visible: false
+    });
 
-    stage.add(shapesLayer);
+    tooltipLayer.add(tooltipBg);
+    tooltipLayer.add(tooltip);
+
+    objectLayer.add(triangle);
+    
+    stage.add(objectLayer);
     stage.add(tooltipLayer);
-
-    function top11(arc){
-        arc.moveToTop();
-        shapesLayer.draw();
-    }
-
-    // let list = [
-    //     {
-    //         x: 10,
-    //         y: 10,
-    //         color: 'red',
-    //         innerRadius: 40,
-    //         outerRadius: 80,
-    //         angle: 60,
-    //         title: 'red'
-    //     },
-       
-    //     {
-    //         x: 10,
-    //         y: 10,
-    //         color: 'grey',
-    //         innerRadius: 20,
-    //         outerRadius: 50,
-    //         angle: 30,
-    //         title: 'grey'
-    //     },
-    //     {
-    //         x: 10,
-    //         y: 10,
-    //         color: 'blue',
-    //         innerRadius: 60,
-    //         outerRadius: 130,
-    //         angle: 40,
-    //         title: 'blue'
-    //     },
-    // ]
-    // for(let ii = this.data.data.length - 1; ii >= 0; ii--){
-    //     let val = this.data.data[ii], key = ii;
-    //     let pathindex = this.data.data.length - 1 - ii;
-
-    //     let color = this.colors[ key % this.colors.length];
-
-    //     if( ju.jsonInData( val, 'itemStyle.color' ) ){
-    //         //path.fill( val.itemStyle.color );
-    //         color = val.itemStyle.color;
-    //     }
-
-    //     let params1 = {
-    //         x: 30,
-    //         y: 150
-    //         , innerRadius: this.inRadius
-    //             , outerRadius: this.outRadius
-    //             , angle: this.countAngle
-    //             , fill: color
-    //             , stroke: color
-    //             , strokeWidth: 0
-    //     };
-
-    //     let arc1 = new Konva.Arc(params1);
-    //     console.log(arc1,'ararc1[0]c1')
-
-    //     arc1.on("mousemove", ()=>{
-    //         console.log("000")
-    //         var mousePos = this.stage.getPointerPosition();
-    //         tooltip.position({
-    //             x : mousePos.x + 5,
-    //             y : mousePos.y + 5
-    //         });
-    //         tooltipBg.position({
-    //             x : mousePos.x,
-    //             y : mousePos.y
-    //         });
-    //         tooltip.text('0000');
-    //         tooltip.show();
-    //         tooltipBg.show();
-    //         this.tooltipLayer.batchDraw();
-    //     });
-    //     arc1.on("mouseout", ()=>{
-    //         tooltip.hide();
-    //         tooltipBg.hide();
-    //         this.tooltipLayer.draw();
-    //     });
-    //     this.arcLayer.add(arc1);
-    // }
-        //
+    stage.add(shapesLayer);
+    
+    shapesLayer.setZIndex(1);
+    tooltipLayer.moveToTop();  
 
   </script>
 
