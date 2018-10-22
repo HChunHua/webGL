@@ -49,8 +49,8 @@
             fill:'skyblue',      //填充颜色
             cornerRadius: 25
         });
-        // layer2.add(innerRect);
-        // layer2.draw(); 
+        layer2.add(innerRect);
+        layer2.draw(); 
 
         //绘制圆形
         var circle = new Konva.Circle({
@@ -110,29 +110,42 @@
             lineWidth: .7       
         });
 
+        var arc = new Konva.Arc({
+            x: 500,
+            y: 50,
+            innerRadius: 40,
+            outerRadius: 80,
+            fill: 'red',
+            stroke: 'black',
+            strokeWidth: 5,
+            angle: 60,
+            // rotationDeg: -120
+        });
+
+        arc.on('move click', function(){
+            console.log("0000")
+        })
+
         // create label
         var label = new Konva.Label({
             x: 100,
-            y: 100,
-            draggable: true
+            y: 500,
+            // draggable: true
         });
+
         // add a tag to the label
         label.add(new Konva.Tag({
             x: window.innerWidth / 4 - 50,
             y: window.innerHeight / 4 - 6,
             width: 300,     
             height: 100,
-            fill: '#bbb',
-            stroke: '#333',
-            shadowColor: 'black',
-            shadowBlur: 10,
-            shadowOffset: [10, 10],
-            shadowOpacity: 0.2,
+            fill: 'rgba(0,0,0,0.2)',
             lineJoin: 'round',
             pointerWidth: 20,
             pointerHeight: 20,
             cornerRadius: 5
         }));
+
 
         // add text to the label
         label.add(new Konva.Text({
@@ -144,8 +157,9 @@
             text: 'Hello World!',
             lineHeight: 1.2,
             padding: 10,
-            fill: 'grey'
+            fill: '#fff'
         }));
+
         // titleLabel.draw();
 
         var group = new Konva.Group({
@@ -159,6 +173,7 @@
         group.add( triangle );
         group.add( txt1 );
         group.add( arrow );
+        group.add( arc );
 
         group.add( label );
 
@@ -191,13 +206,13 @@
             }
         }); 
 
-        // innerRect.on( 'mouseover', function () {
-        //     console.log( '1111' );
-        // });
+        innerRect.on( 'mouseover click', function () {
+            console.log( 'innerRect1111' );
+        });
 
-        // triangle.on('mouseover',function(){
-        //     console.log("1111")
-        // });
+        circle.on('mouseover dbclick',function(){
+            console.log("circle")
+        });
         
     </script>
 </body>
