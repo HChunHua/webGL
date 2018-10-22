@@ -110,8 +110,9 @@
             angle: list[i].angle,
         };
         let arc = new Konva.Arc(params);
-        console.log(arc,'arc')
+        // console.log(arc,'arc')
         arc.on("mousemove", function(){
+            console.log("00")
             var mousePos = stage.getPointerPosition();
             tooltip.position({
                 x : mousePos.x + 5,
@@ -132,8 +133,17 @@
             tooltipBg.hide();
             tooltipLayer.draw();
         });
+
+        arc.moveToTop();
+        // arc.setZIndex(1);
+        shapesLayer.draw();
         
         shapesLayer.add(arc);
+
+        //  arc.moveToTop();
+        //  arc.setZIndex(1);
+
+        //  layer.draw();
     }
 
     var triangle = new Konva.Rect({
