@@ -67,7 +67,7 @@
 
     tooltipLayer.add(tooltipBg);
     tooltipLayer.add(tooltip);
-
+    
     list = [
         {
             x: 550,
@@ -110,6 +110,7 @@
             angle: list[i].angle,
         };
         let arc = new Konva.Arc(params);
+        top11(arc);
         // console.log(arc,'arc')
         arc.on("mousemove", function(){
             console.log("00")
@@ -134,16 +135,8 @@
             tooltipLayer.draw();
         });
 
-        arc.moveToTop();
-        // arc.setZIndex(1);
-        shapesLayer.draw();
-        
         shapesLayer.add(arc);
 
-        //  arc.moveToTop();
-        //  arc.setZIndex(1);
-
-        //  layer.draw();
     }
 
     var triangle = new Konva.Rect({
@@ -152,7 +145,7 @@
         width: 500,   //矩形的宽高
         height:350,
         stroke : 'black',
-        // fill : '#00D2FF',
+        fill : '#00D2FF',
         strokeWidth : 1
     });
 
@@ -160,6 +153,11 @@
 
     stage.add(shapesLayer);
     stage.add(tooltipLayer);
+
+    function top11(arc){
+        arc.moveToTop();
+        shapesLayer.draw();
+    }
 
     // let list = [
     //     {
